@@ -1,0 +1,24 @@
+:root {
+  --bg: #000000;
+  --surface: #0a0a0a;
+  --border: #262626;
+  --border-soft: #1f1f1f;
+  --text: #f2f2f2;
+  --text-strong: #e6e6e6;
+  --muted: #8c8c8c;
+  --dim: #6e6e6e;
+  --accent: #ff9903;
+  --warn: #ffc266;
+  --error: #ff6b5e;
+  --error-text: #ff8a7f;
+  --track: #1f1f1f;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ubuntu), system-ui, sans-serif;
+}
