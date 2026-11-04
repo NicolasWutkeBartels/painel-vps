@@ -1,23 +1,33 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import type { LogLine as LogLineData } from "@/schemas/log";
+import { useEffect, useMemo, useRef } from "react";
+import type { ConsoleLine, LogLine as LogLineData } from "@/schemas/log";
 import { LogLine } from "@/components/LogLine/LogLine";
 import { CommandInput } from "@/components/CommandInput/CommandInput";
+import { useCommand } from "@/hooks/useCommand";
 
 type ConsoleProps = {
-  hostname?: string;
   logs: LogLineData[];
   error?: string | null;
 };
 
-export function Console({ hostname, logs, error }: ConsoleProps) {
+export function Console({ logs, error }: ConsoleProps) {
   const outputRef = useRef<HTMLDivElement>(null);
+  const { lines: commandLines, history, running, execute } = useCommand();
+
+  // Junta logs do servidor e saída dos comandos, ordenando pelo horário (HH:MM:SS).
+  const lines = useMemo<ConsoleLine[]>(() => {
+    const serverLines: ConsoleLine[] = logs.map((log) => ({ ...log, kind: "log" }));
+    return [...serverLines, ...commandLines]
+      .map((line, index) => ({ line, index }))
+      .sort((a, b) => a.line.time.localeCompare(b.line.time) || a.index - b.index)
+      .map(({ line }) => line);
+  }, [logs, commandLines]);
 
   useEffect(() => {
     const el = outputRef.current;
     if (el) el.scrollTop = el.scrollHeight;
-  }, [logs]);
+  }, [lines]);
 
   return (
     <section className="flex flex-col overflow-hidden rounded-xl border border-line bg-surface" aria-label="Console">
@@ -27,13 +37,13 @@ export function Console({ hostname, logs, error }: ConsoleProps) {
         role="log"
         aria-label="Saída do console"
       >
-        {logs.map((line, i) => (
-          <LogLine key={`${line.time}-${i}`} {...line} />
+        {lines.map((line, i) => (
+          <LogLine key={`${line.time}-${i}`} line={line} />
         ))}
-        {logs.length === 0 && !error && <span className="text-dim">Aguardando logs…</span>}
+        {lines.length === 0 && !error && <span className="text-dim">Aguardando logs…</span>}
         {error && <span className="text-error-soft">Falha ao buscar logs: {error}</span>}
       </div>
-      <CommandInput hostname={hostname} />
+      <CommandInput history={history} running={running} onSubmit={execute} />
     </section>
   );
 }

@@ -1,4 +1,4 @@
-import type { LogLevel, LogLine as LogLineData } from "@/schemas/log";
+import type { ConsoleLine, LogLevel } from "@/schemas/log";
 
 const levelClass: Record<LogLevel, string> = {
   INFO: "text-muted",
@@ -14,12 +14,20 @@ const messageClass: Record<LogLevel, string> = {
   CMD: "text-accent",
 };
 
-export function LogLine({ time, level, message }: LogLineData) {
+export function LogLine({ line }: { line: ConsoleLine }) {
+  if (line.kind === "output") {
+    return (
+      <div className={`whitespace-pre-wrap wrap-anywhere ${line.error ? "text-error-soft" : "text-fg-strong"}`}>
+        {line.message || " "}
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-wrap gap-x-2">
-      <span className="text-dim">[{time}</span>
-      <span className={`font-bold ${levelClass[level]}`}>{level}]:</span>
-      <span className={`min-w-0 flex-[1_1_280px] wrap-anywhere ${messageClass[level]}`}>{message}</span>
+      <span className="text-dim">[{line.time}</span>
+      <span className={`font-bold ${levelClass[line.level]}`}>{line.level}]:</span>
+      <span className={`min-w-0 flex-[1_1_280px] wrap-anywhere ${messageClass[line.level]}`}>{line.message}</span>
     </div>
   );
 }

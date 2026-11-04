@@ -15,7 +15,7 @@ export function Dashboard() {
     <div className="flex min-h-screen flex-col items-center p-4 sm:p-8">
       <div className="flex w-full max-w-[1216px] flex-col gap-6">
         <header className="flex flex-wrap items-stretch gap-3">
-          <UptimeCard seconds={status?.uptimeSeconds} />
+          <UptimeCard since={status?.uptime} />
 
           <div className="hidden flex-[1_1_40px] sm:block" />
 
@@ -35,10 +35,10 @@ export function Dashboard() {
             detail={status ? `${formatGb(status.disk.used)}/${formatGb(status.disk.total)} GB` : undefined}
           />
 
-          <LastRestartCard iso={status?.lastRestart} />
+          <LastRestartCard date={status?.lastRestart} />
         </header>
 
-        <Console hostname={status?.hostname} logs={logs ?? []} error={logsError} />
+        <Console logs={logs ?? []} error={logsError} />
       </div>
     </div>
   );
