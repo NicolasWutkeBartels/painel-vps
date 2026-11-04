@@ -1,17 +1,15 @@
-import type { CSSProperties, ReactNode } from "react";
-import styles from "./StatCard.module.css";
+import type { ReactNode } from "react";
 
 type StatCardProps = {
   label: string;
   children: ReactNode;
-  style?: CSSProperties;
-  gap?: number;
+  className?: string;
 };
 
-export function StatCard({ label, children, style, gap }: StatCardProps) {
+export function StatCard({ label, children, className = "" }: StatCardProps) {
   return (
-    <div className={styles.card} style={{ ...style, ...(gap ? { gap } : {}) }}>
-      <span className={styles.label}>{label}</span>
+    <div className={`flex flex-col gap-1.5 rounded-[10px] border border-line px-4 py-3.5 ${className}`}>
+      <span className="text-[11px] uppercase tracking-[0.1em] text-muted">{label}</span>
       {children}
     </div>
   );

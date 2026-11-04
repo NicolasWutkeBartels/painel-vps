@@ -1,24 +1,29 @@
-:root {
-  --bg: #000000;
-  --surface: #0a0a0a;
-  --border: #262626;
-  --border-soft: #1f1f1f;
-  --text: #f2f2f2;
-  --text-strong: #e6e6e6;
-  --muted: #8c8c8c;
-  --dim: #6e6e6e;
-  --accent: #ff9903;
-  --warn: #ffc266;
-  --error: #ff6b5e;
-  --error-text: #ff8a7f;
-  --track: #1f1f1f;
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-ubuntu), system-ui, sans-serif;
+  --font-mono: var(--font-ubuntu-mono), monospace;
 }
 
-* { box-sizing: border-box; }
+@theme {
+  --color-bg: #000000;
+  --color-surface: #0a0a0a;
+  --color-line: #262626;
+  --color-line-soft: #1f1f1f;
+  --color-track: #1f1f1f;
+  --color-fg: #f2f2f2;
+  --color-fg-strong: #e6e6e6;
+  --color-muted: #8c8c8c;
+  --color-dim: #6e6e6e;
+  --color-accent: #ff9903;
+  --color-warn: #ffc266;
+  --color-error: #ff6b5e;
+  --color-error-soft: #ff8a7f;
+}
 
-html, body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-ubuntu), system-ui, sans-serif;
+@layer base {
+  html,
+  body {
+    @apply bg-bg text-fg font-sans m-0 leading-[normal];
+  }
 }

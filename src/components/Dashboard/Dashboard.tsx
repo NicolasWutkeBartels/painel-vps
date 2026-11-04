@@ -6,19 +6,18 @@ import { UptimeCard } from "@/components/UptimeCard/UptimeCard";
 import { UsageCard } from "@/components/UsageCard/UsageCard";
 import { LastRestartCard } from "@/components/LastRestartCard/LastRestartCard";
 import { Console } from "@/components/Console/Console";
-import styles from "./Dashboard.module.css";
 
 export function Dashboard() {
   const { data: status } = useVpsStatus();
   const { data: logs, error: logsError } = useVpsLogs();
 
   return (
-    <div className={styles.page}>
-      <div className={styles.container}>
-        <header className={styles.header}>
+    <div className="flex min-h-screen flex-col items-center p-4 sm:p-8">
+      <div className="flex w-full max-w-[1216px] flex-col gap-6">
+        <header className="flex flex-wrap items-stretch gap-3">
           <UptimeCard seconds={status?.uptimeSeconds} />
 
-          <div className={styles.spacer} />
+          <div className="hidden flex-[1_1_40px] sm:block" />
 
           <UsageCard
             label="RAM"

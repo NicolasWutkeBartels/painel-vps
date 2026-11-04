@@ -1,6 +1,6 @@
 # Painel VPS
 
-Front-end (Next.js + React) para monitorar a VPS: uptime, RAM, CPU, disco, último restart e console de logs.
+Front-end (Next.js + React + Tailwind CSS) para monitorar a VPS: uptime, RAM, CPU, disco, último restart e console de logs.
 
 ## Rodando
 
@@ -46,7 +46,7 @@ As respostas são validadas com zod (`src/schemas`).
 
 ```
 src/
-  app/          layout, página e estilos globais
+  app/          layout, página e estilos globais (Tailwind CSS v4, tema em globals.css)
   components/   Dashboard, StatCard, UsageCard, UptimeCard, LastRestartCard, Console, LogLine, CommandInput
   hooks/        usePolling, useVps
   lib/          env (validada com zod) e instância do axios

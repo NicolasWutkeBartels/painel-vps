@@ -1,11 +1,12 @@
 import { StatCard } from "@/components/StatCard/StatCard";
 import { formatUptime } from "@/utils/format";
-import styles from "./UptimeCard.module.css";
 
 export function UptimeCard({ seconds }: { seconds?: number }) {
   return (
-    <StatCard label="Uptime" style={{ flex: "0 1 220px", minWidth: 160 }}>
-      <span className={styles.value}>{seconds !== undefined ? formatUptime(seconds) : "—"}</span>
+    <StatCard label="Uptime" className="min-w-40 flex-[0_1_220px]">
+      <span className="font-mono text-[22px] font-bold text-accent">
+        {seconds !== undefined ? formatUptime(seconds) : "—"}
+      </span>
     </StatCard>
   );
 }
