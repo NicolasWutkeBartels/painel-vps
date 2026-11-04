@@ -44,6 +44,8 @@ As respostas (e o corpo enviado) são validadas com zod (`src/schemas`).
 ```
 `level`: `INFO` | `WARN` | `ERROR` | `CMD`.
 
+`time` pode vir como `HH:MM` ou `HH:MM:SS`; o painel exibe só hora e minuto (os segundos, se vierem, são usados apenas para ordenar).
+
 ### `POST /command`
 Corpo enviado:
 ```json

@@ -1,4 +1,5 @@
 import type { ConsoleLine, LogLevel } from "@/schemas/log";
+import { formatLogTime } from "@/utils/format";
 
 const levelClass: Record<LogLevel, string> = {
   INFO: "text-muted",
@@ -25,7 +26,7 @@ export function LogLine({ line }: { line: ConsoleLine }) {
 
   return (
     <div className="flex flex-wrap gap-x-2">
-      <span className="text-dim">[{line.time}</span>
+      <span className="text-dim">[{formatLogTime(line.time)}</span>
       <span className={`font-bold ${levelClass[line.level]}`}>{line.level}]:</span>
       <span className={`min-w-0 flex-[1_1_280px] wrap-anywhere ${messageClass[line.level]}`}>{line.message}</span>
     </div>

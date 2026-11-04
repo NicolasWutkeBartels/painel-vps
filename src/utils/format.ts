@@ -33,3 +33,9 @@ export function formatRelativeDays(date: Date): string {
 export function formatClock(date: Date): string {
   return `${pad(date.getHours())}:${pad(date.getMinutes())}:${pad(date.getSeconds())}`;
 }
+
+/** Exibe só hora e minuto: "14:32:08" → "14:32". Outros formatos passam como vieram. */
+export function formatLogTime(time: string): string {
+  const match = /^(\d{1,2}):(\d{2})(?::\d{2}(?:\.\d+)?)?$/.exec(time.trim());
+  return match ? `${match[1].padStart(2, "0")}:${match[2]}` : time;
+}
